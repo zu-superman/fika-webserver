@@ -1,0 +1,35 @@
+# 数据源配置
+spring:
+  datasource:
+    druid:
+      # 主库数据源
+      master:
+        url: jdbc:mysql://10.17.19.6:26761/spt-helper?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        username: ENC(EhxOrynQsznXPw4pe66Lhw==)
+        password: ENC(jhgna6Ry8bXwHoIF3eGNVJQxcExct1SnlX0B7JlCunbU98BdREsvacH4rbEwwj6k)
+      # 从库数据源
+      slave:
+        # 从数据源开关/默认关闭
+        enabled: false
+        url:
+        username:
+        password:
+      stat-view-servlet:
+        enabled: true
+        # 设置白名单，不填则允许所有访问
+        allow:
+        url-pattern: /druid/*
+        # 控制台管理用户名和密码
+        login-username: ENC(TfTFkswk+Ha6BRh/AJCPveXGhtmk56em)
+        login-password: ENC(ssW/YbW6SOwkwM2Kx5eqmo0m+y6MbNcYOct+deReXZqU7yZo7na69YRxYTLPDRxP)
+  redis:
+    # 地址
+    host: localhost
+    # 端口，默认为6379
+    port: 6379
+    # 密码
+    password: ENC(Nx2l493Drsto8z7Nyy6ZYTQfPGqIN1yfOF96ejDBIwf/YPgFmRwwWbdgo2oV4JI+)
+
+token:
+  # 令牌密钥
+  secret: ENC(/Htj3R9V5YtZ2re/jwoZ4uLrZtRMMqKEdz7mQ/NyCNpU8uCHuPDF4e1Xwh781DWb)

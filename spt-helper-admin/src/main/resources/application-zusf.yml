@@ -1,0 +1,42 @@
+# 数据源配置
+spring:
+  datasource:
+    druid:
+      # 主库数据源
+      master:
+        url: jdbc:mysql://192.168.8.160:40962/spt-helper?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        username: ENC(meMsNPcCiNN+dzCbyWbNhg==)
+        password: ENC(FH2Y7kfV5eh+U7u6S8FMdVAhDuBrEUy2GZePl6o9fmXV+xgC7iSAWP/phhH/ABx1)
+      # 从库数据源
+      slave:
+        # 从数据源开关/默认关闭
+        enabled: false
+        url:
+        username:
+        password:
+      stat-view-servlet:
+        enabled: true
+        # 设置白名单，不填则允许所有访问
+        allow:
+        url-pattern: /druid/*
+        # 控制台管理用户名和密码
+        login-username: ENC(TlN9rUO6ogQpF5YcDnaMwzH2e4u3jUAb)
+        login-password: ENC(+EC3QKneYTCwhiQ9j63TDQol8RppiLaD6C58ugIZm2zPlG3mmvZGFU4fWIXQcQwz)
+  redis:
+    # 地址
+    host: 192.168.8.161
+    # 数据库索引
+    database: 8
+    # 端口，默认为6379
+    port: 20100
+    # 密码
+    password: ENC(bXxq5YSxYaikouvsi3vbIU5YypHUtL4h)
+
+token:
+  # 令牌密钥
+  secret: ENC(nL/ixD4QL9sD4dGYRdVs+HmiRE0exR7KF1PLXEJ3GoffrMoN877u8w8H68PWcwGi)
+
+#jasypt:
+#  encryptor:
+#    algorithm: PBEWithMD5AndDES
+#    password: ISWXLWPOMFJJMDPR
