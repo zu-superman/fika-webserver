@@ -12,6 +12,7 @@ spt-helper:
   addressEnabled: false
   # 验证码类型 math 数字计算 char 字符验证
   captchaType: math
+  # totp验证码密钥
   totpSecret: ENC(k5qhwwQASPBl8rRnB+ejThZv/r1vC9Ea+2b4GADBNS0=)
 
 # 开发环境配置
