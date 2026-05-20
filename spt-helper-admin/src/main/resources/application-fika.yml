@@ -5,8 +5,8 @@ spring:
       # 主库数据源
       master:
         url: jdbc:mysql://10.17.19.6:26761/spt-helper?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-        username: ENC(EhxOrynQsznXPw4pe66Lhw==)
-        password: ENC(jhgna6Ry8bXwHoIF3eGNVJQxcExct1SnlX0B7JlCunbU98BdREsvacH4rbEwwj6k)
+        username: ENC(6RvsLw0d313umgQwJ6rvlQ==)
+        password: ENC(uIfZ+HOCgwN12biGdR7+Quottq2LM5mR4boI4jnUY00EwE/8kTB0H139Zrj8tXeb)
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭
@@ -20,16 +20,16 @@ spring:
         allow:
         url-pattern: /druid/*
         # 控制台管理用户名和密码
-        login-username: ENC(TfTFkswk+Ha6BRh/AJCPveXGhtmk56em)
-        login-password: ENC(ssW/YbW6SOwkwM2Kx5eqmo0m+y6MbNcYOct+deReXZqU7yZo7na69YRxYTLPDRxP)
+        login-username: ENC(LcID5+wb3Dg3DqpIIJDH06war3XQpChg)
+        login-password: ENC(BDFdr06oxi4E1C2sPKKvuI8XRtFt4NzJvPq6DiG7jLSnXF9LvLQ+o/9MCGbd3IqN)
   redis:
     # 地址
-    host: localhost
+    host: 10.17.19.6
     # 端口，默认为6379
-    port: 6379
+    port: 48938
     # 密码
-    password: ENC(Nx2l493Drsto8z7Nyy6ZYTQfPGqIN1yfOF96ejDBIwf/YPgFmRwwWbdgo2oV4JI+)
+    password: ENC(3/wx4ZNwVWZhfKB0tAmzzIcQvrRnmlPN0UowRiF7rUQD5a6sF/hDMoaayJf0j3vL)
 
 token:
   # 令牌密钥
-  secret: ENC(/Htj3R9V5YtZ2re/jwoZ4uLrZtRMMqKEdz7mQ/NyCNpU8uCHuPDF4e1Xwh781DWb)
+  secret: ENC(4KycuvNNJkw4b79VycfxH//rDUuIfBFDVqg2icjKq4cK1gVoUSAJHV9vHApiiVHD)
