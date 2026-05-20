@@ -5,15 +5,19 @@ spt-helper:
   # 版本
   version: 1.0.0
   # 版权年份
-  copyrightYear: 2026
+  copyright-year: 2026
   # 文件路径 示例（ Windows配置D:/uploadPath，Linux配置 /uploadPath）
   profile: /tmp/shs
   # 获取ip地址开关
-  addressEnabled: false
+  address-enabled: false
   # 验证码类型 math 数字计算 char 字符验证
-  captchaType: math
+  captcha-type: math
+  # turnstile 验证秘钥
+  turnstile-site-secret: ENC(k8UbaLQan2RKDSfOij1U14KqlncvNq92kEtM/v5KQHx2WvWBs7CBHzU+PBzWF5Ew)
+  # turnstile 验证API
+  turnstile-verify-api: https://challenges.cloudflare.com/turnstile/v0/siteverify
   # totp验证码密钥
-  totpSecret: ENC(k5qhwwQASPBl8rRnB+ejThZv/r1vC9Ea+2b4GADBNS0=)
+  totp-secret: ENC(k5qhwwQASPBl8rRnB+ejThZv/r1vC9Ea+2b4GADBNS0=)
 
 # 开发环境配置
 server:

@@ -37,6 +37,16 @@ public class RuoYiConfig {
     private static String captchaType;
 
     /**
+     * turnstile 验证秘钥
+     */
+    private String turnstileSiteSecret;
+
+    /**
+     * turnstile 验证api
+     */
+    private String turnstileVerifyApi;
+
+    /**
      * totp秘钥
      */
     private String totpSecret;

@@ -1,9 +1,16 @@
 package cn.hy.framework.web.service;
 
-import javax.annotation.Resource;
-
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.http.ContentType;
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpResponse;
+import cn.hutool.http.HttpUtil;
+import cn.hy.common.config.RuoYiConfig;
+import cn.hy.common.core.domain.model.TurnstileResult;
+import cn.hy.common.enums.TurnstileErrorCode;
+import com.alibaba.fastjson2.JSONObject;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +37,10 @@ import cn.hy.framework.security.context.AuthenticationContextHolder;
 import cn.hy.system.service.ISysConfigService;
 import cn.hy.system.service.ISysUserService;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 登录校验方法
  * 
@@ -37,6 +48,7 @@ import cn.hy.system.service.ISysUserService;
  */
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class SysLoginService {
     private final TokenService tokenService;
 
@@ -47,6 +59,8 @@ public class SysLoginService {
     private final ISysUserService userService;
 
     private final ISysConfigService configService;
+
+    private final RuoYiConfig ruoYiConfig;
 
     /**
      * 登录验证
@@ -59,7 +73,8 @@ public class SysLoginService {
      */
     public String login(String username, String password, String code, String uuid) {
         // 验证码校验
-        validateCaptcha(username, code, uuid);
+//        validateCaptcha(username, code, uuid);
+        validTurnstile(code, uuid);
         // 登录前置校验
         loginPreCheck(username, password);
         // 用户验证
@@ -88,6 +103,52 @@ public class SysLoginService {
         recordLoginInfo(loginUser.getUserId());
         // 生成token
         return tokenService.createToken(loginUser);
+    }
+
+    /**
+     * 校验turnstile
+     * @param response turnstile人机验证结果值
+     * @param idempotencyKey 幂等键
+     */
+    private void validTurnstile(String response, String idempotencyKey) {
+
+        Map<String, String> params = new HashMap<>(4);
+        params.put("secret", ruoYiConfig.getTurnstileSiteSecret());
+        params.put("response", response);
+        params.put("remoteip", IpUtils.getIpAddr());
+        params.put("idempotency-key", idempotencyKey);
+
+        try {
+            HttpRequest httpRequest = HttpUtil.createPost(ruoYiConfig.getTurnstileVerifyApi())
+                    .contentType(ContentType.JSON.getValue())
+                    .timeout(60000)
+                    .body(JSONObject.toJSONString(params));
+
+            try (HttpResponse httpResponse = httpRequest.execute()) {
+                String validResultJson = httpResponse.body();
+                TurnstileResult validResult = JSONObject.parseObject(validResultJson, TurnstileResult.class);
+
+                if (!validResult.getSuccess()) {
+                    List<String> errorList = validResult.getErrorCodes();
+
+                    log.error("turnstile验证失败, 错误码: {}", errorList);
+
+                    if (CollectionUtil.contains(errorList, TurnstileErrorCode.TIMEOUT_OR_DUPLICATE.getErrorCode())) {
+                        throw new CaptchaExpireException();
+                    }
+
+                    throw new CaptchaException();
+                }
+
+            }
+
+        } catch (Exception e) {
+            log.error("turnstile验证失败: ", e);
+            throw new CaptchaException();
+        }
+
+
+
     }
 
     /**
