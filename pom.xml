@@ -220,6 +220,13 @@
                 <version>${spt-helper.version}</version>
             </dependency>
 
+            <!-- fika业务服务扩展模块-->
+            <dependency>
+                <groupId>cn.hy</groupId>
+                <artifactId>spt-helper-fika-webapp</artifactId>
+                <version>${spt-helper.version}</version>
+            </dependency>
+
             <!-- Jasypt加密 -->
             <dependency>
                 <groupId>com.github.ulisesbocchio</groupId>
@@ -243,6 +250,7 @@
         <module>spt-helper-quartz</module>
         <module>spt-helper-generator</module>
         <module>spt-helper-common</module>
+        <module>spt-helper-fika-webapp</module>
     </modules>
     <packaging>pom</packaging>
 
